@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+int minPatches(std::vector<int>& nums, int n) {
+    int n2 = nums.size();
+    long range = 0;
+    int res = 0, i = 0;
+    while (range < n) {
+        if (i < n2 && nums[i] <= range + 1) {
+            range += nums[i];
+            i++;
+        } else {
+            res++;
+            range += (range + 1);
+        }
+    }
+    return res;
+}
+
+int main() {
+    std::vector<int> nums;
+    int n;
+    
+    std::cout << "Enter the elements of the sorted integer array (enter -1 to stop): ";
+    int num;
+    while (true) {
+        std::cin >> num;
+        if (num == -1) break;
+        nums.push_back(num);
+    }
+    
+    std::cout << "Enter the integer n: ";
+    std::cin >> n;
+    
+    int patches = minPatches(nums, n);
+    
+    std::cout << "Minimum number of patches required: " << patches << std::endl;
+    
+    return 0;
+}
+
