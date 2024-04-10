@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+
+std::string removeKdigits(const std::string& num, int k) {
+    std::stack<char> stack;
+    for (char digit : num) {
+        while (k > 0 && !stack.empty() && stack.top() > digit) {
+            stack.pop();
+            k--;
+        }
+        stack.push(digit);
+    }
+    while (k > 0 && !stack.empty()) {
+        stack.pop();
+        k--;
+    }
+    
+    std::string result;
+    while (!stack.empty()) {
+        result = stack.top() + result;
+        stack.pop();
+    }
+    size_t nonZeroIndex = result.find_first_not_of('0');
+    return nonZeroIndex == std::string::npos ? "0" : result.substr(nonZeroIndex);
+}
+
+int main() {
+    std::string num;
+    int k;
+    
+    std::cout << "Enter a non-negative integer number and k";
+    std::cin >> num;
+    std::cin >> k;
+    
+    std::string smallestNum = removeKdigits(num, k);
+    
+    std::cout << "Smallest possible integer after removing " << k << " digits: " << smallestNum << std::endl;
+    
+    return 0;
+}
