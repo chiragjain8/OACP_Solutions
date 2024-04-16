@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int totalHammingDistance(vector<int>& nums) {
+        int ans = 0;
+        for(int i = 0 ; i < 31 ; i++){
+            int cnt1 = 0;
+            for(int j = 0 ; j < nums.size() ; j++){
+                if(nums[j]&(1<<i))cnt1++;
+            }
+            ans+=(cnt1*(nums.size()-cnt1));
+        }
+        return ans;
+    }
+};
+
+int main() {
+    int n;
+    cin >> n; // Number of elements in the array
+    vector<int> nums(n);
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i]; // Input each element
+    }
+
+    Solution s;
+    int result = s.totalHammingDistance(nums);
+    cout << "Total Hamming Distance: " << result << endl;
+    return 0;
+}
